@@ -259,11 +259,20 @@ def getClientsXML() {
     //getAuthenticationToken()
     def jsonDevices = [:]
     // Get from Devices List
+    def resp = new physicalgraph.device.HubAction(
+    method: "GET",
+    path: "/emby/Devices?&api_key=${settings.embyApiKey",
+    headers: [
+        HOST: "${settings.embyServerIP}:${settings.embyServerPort}"
+    ],
+)
+    /*
     def paramsg = [
 		uri: "http://${settings.embyServerIP}:${settings.embyServerPort}/emby/Devices?&api_key=${settings.embyApiKey}",
         contentType: 'application/json',
 	]
-	httpGet(paramsg) { resp ->
+	*/
+	//httpGet(paramsg) { resp ->
         log.debug "Parsing Emby Devices"
         def devices = resp.data.Items
         devices.each { thing ->        
